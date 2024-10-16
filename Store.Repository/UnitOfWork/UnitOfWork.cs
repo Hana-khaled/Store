@@ -32,7 +32,9 @@ namespace Store.Repository.UnitOfWork
             {
                 _repositories = new Hashtable();
             }
-            var entityKey = typeof(TEntity).Name;
+
+            var entityKey = typeof(TEntity).Name; // ex: Product
+
             if (!_repositories.ContainsKey(entityKey))
             {
                 var repositoryType = typeof(IGenericRepository<,>);
