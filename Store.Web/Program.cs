@@ -1,12 +1,13 @@
 
 using Microsoft.EntityFrameworkCore;
 using Store.Data.Contexts;
+using Store.Web.Helper;
 
 namespace Store.Web
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,7 @@ namespace Store.Web
 
             app.UseAuthorization();
 
+            await ApplySeeding.ApplySeedingAync(app);
 
             app.MapControllers();
 

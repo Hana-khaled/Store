@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="SeedContextSeed.cs~RFe274177.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Store.Data\Store.Data.csproj" />
   </ItemGroup>
 
