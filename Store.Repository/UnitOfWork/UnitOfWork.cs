@@ -37,12 +37,12 @@ namespace Store.Repository.UnitOfWork
 
             if (!_repositories.ContainsKey(entityKey))
             {
-                var repositoryType = typeof(IGenericRepository<,>);
+                var repositoryType = typeof(GenericRepository<,>);
                 var repositoryInstance = Activator.CreateInstance(repositoryType.MakeGenericType(typeof(TEntity), typeof(TKey)), _context);
 
                 _repositories.Add(entityKey, repositoryInstance);
             }
-            return (IGenericRepository < TEntity, TKey>) _repositories[entityKey];
+            return (IGenericRepository <TEntity, TKey>) _repositories[entityKey];
         }
     }
 }
