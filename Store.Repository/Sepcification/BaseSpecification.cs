@@ -17,9 +17,7 @@ namespace Store.Repository.Sepcification
 
         public List<Expression<Func<T, object>>> Includes { get; } = new List<Expression<Func<T, object>>>();
          protected void AddIncludes(Expression<Func<T, object>> include)
-        {
-            Includes.Add(include);
-        }
+        => Includes.Add(include);
 
     }
 }
