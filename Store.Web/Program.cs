@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Store.Data.Contexts;
 using Store.Repository.Interfaces;
 using Store.Repository.UnitOfWork;
+using Store.Services.Mapping;
+using Store.Services.Products;
 using Store.Web.Helper;
 
 namespace Store.Web
@@ -21,6 +23,8 @@ namespace Store.Web
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddAutoMapper(typeof(ProductProfile));
 
             builder.Services.AddDbContext<StoreDbContext>(options => {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -38,6 +42,8 @@ namespace Store.Web
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
+
+            app.UseStaticFiles();
 
             await ApplySeeding.ApplySeedingAync(app);
 
