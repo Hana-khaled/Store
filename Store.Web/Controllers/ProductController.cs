@@ -5,7 +5,7 @@ using Store.Services.Products.Dtos;
 
 namespace Store.Web.Controllers
 {
-    [Route("api/[controller]/[action]")] // we must specifiy action in url to know whioch one you want to execute
+    [Route("api/[controller]/[action]")] // We must specifiy the action in url to know which one you want to execute
     [ApiController]
     public class ProductController : ControllerBase
     {

@@ -43,6 +43,8 @@ namespace Store.Web
 
             app.UseAuthorization();
 
+            app.UseStaticFiles();
+
             await ApplySeeding.ApplySeedingAync(app);
 
             app.MapControllers();

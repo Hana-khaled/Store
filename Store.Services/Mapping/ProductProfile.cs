@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Store.Data.Entities;
+using Store.Services.Products;
 using Store.Services.Products.Dtos;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,8 @@ namespace Store.Services.Mapping
         {
             CreateMap<Product, ProductDto>()
                 .ForMember(dest => dest.BrandName, option => option.MapFrom(src => src.Brand.Name))
-                .ForMember(dest => dest.TypeName, option => option.MapFrom(src => src.Type.Name));
+                .ForMember(dest => dest.TypeName, option => option.MapFrom(src => src.Type.Name))
+                .ForMember(dest => dest.ImageUrl, option => option.MapFrom<ProductImageResolver>());
 
             CreateMap<ProductBrand, BrandTypeDetailsDto>();
             CreateMap<ProductType, BrandTypeDetailsDto>();
