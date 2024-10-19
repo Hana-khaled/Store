@@ -9,13 +9,16 @@ namespace Store.Repository.Sepcification.ProductSpecs
 {
     public class ProductWithSpecification : BaseSpecification<Product>
     {
+        // Used in GetAllWithSpecification (criteria - include - order - paginate)
         public ProductWithSpecification(ProductSpecification specs) :
             base(Prod => (!specs.BrandId.HasValue || Prod.BrandId == specs.BrandId.Value) &&
-                         (!specs.TypeId.HasValue || Prod.TypeId == specs.TypeId.Value))
+                         (!specs.TypeId.HasValue || Prod.TypeId == specs.TypeId.Value)) // Criteria
         {
+            // Includes
             AddIncludes(x => x.Brand);
             AddIncludes(x => x.Type);
 
+            // Ordering
             switch (specs.Sort)
             {
                 case "PriceAsc":
@@ -28,10 +31,13 @@ namespace Store.Repository.Sepcification.ProductSpecs
                     AddOrderBy(x => x.Name);
                     break;
             }
+
+            // Pagination
+            ApplyPagination(specs.PageSize * (specs.PageIndex - 1), specs.PageSize);
             
         }
 
-        // an overload to be used in GetByIdWithSpecs() method
+        // an overload to be used in GetByIdWithSpecs() method (include only, since we are returning one item)
         public ProductWithSpecification(int? id) :
             base( prod => prod.Id == id)
         {

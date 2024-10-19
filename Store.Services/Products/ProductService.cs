@@ -2,12 +2,14 @@
 using Store.Data.Entities;
 using Store.Repository.Interfaces;
 using Store.Repository.Sepcification.ProductSpecs;
+using Store.Services.Helper;
 using Store.Services.Products.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Store.Services.Products
 {
@@ -36,7 +38,7 @@ namespace Store.Services.Products
             return mappedBrands;
         }
 
-        public async Task<IReadOnlyList<ProductDto>> GetAllProductsAsync(ProductSpecification input)
+        public async Task<PaginatedResultDto<ProductDto>> GetAllProductsAsync(ProductSpecification input)
         {
             var specs = new ProductWithSpecification(input);
 
@@ -56,7 +58,10 @@ namespace Store.Services.Products
 
             var mappedProducts = _mapper.Map<IReadOnlyList<ProductDto>>(products);
 
-            return mappedProducts;
+            var Count = await _unitOfWork.Repository<Product, int>().GetCountWithSpecificationAsync(specs);
+
+            return new PaginatedResultDto<ProductDto>(input.PageIndex, input.PageSize, mappedProducts.Count, mappedProducts);
+
         }
 
         public async Task<IReadOnlyList<BrandTypeDetailsDto>> GetAllTypesAsync()
