@@ -15,7 +15,28 @@ namespace Store.Repository.Sepcification.ProductSpecs
         {
             AddIncludes(x => x.Brand);
             AddIncludes(x => x.Type);
+
+            switch (specs.Sort)
+            {
+                case "PriceAsc":
+                    AddOrderBy(x => x.Price);
+                    break;
+                case "PriceDesc":
+                    AddOrderByDescending(x => x.Price);
+                    break;
+               default:
+                    AddOrderBy(x => x.Name);
+                    break;
+            }
             
+        }
+
+        // an overload to be used in GetByIdWithSpecs() method
+        public ProductWithSpecification(int? id) :
+            base( prod => prod.Id == id)
+        {
+            AddIncludes(x => x.Brand);
+            AddIncludes(x => x.Type);
         }
     }
 }

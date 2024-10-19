@@ -31,7 +31,7 @@ namespace Store.Web.Controllers
             => Ok(await _productService.GetAllProductsAsync(input));
 
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<BrandTypeDetailsDto>>> GetProductById(int? id)
+        public async Task<ActionResult<IReadOnlyList<BrandTypeDetailsDto>>> GetProductById([FromQuery]int? id)
             => Ok(await _productService.GetProductByIdAsync(id));
     }
 }

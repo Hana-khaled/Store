@@ -79,7 +79,8 @@ namespace Store.Services.Products
             if (id is null)
                 throw new Exception("Id is Null");
 
-            var product = await _unitOfWork.Repository<Product, int>().GetByIdAsync(id.Value);
+            var specs = new ProductWithSpecification(id);
+            var product = await _unitOfWork.Repository<Product, int>().GetByIdWithSpecificationAsync(specs);
 
             if (product is null)
                 throw new Exception("Product not Found");

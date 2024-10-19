@@ -12,5 +12,7 @@ namespace Store.Repository.Sepcification
         Expression<Func<T, bool>> Criteria { get; } // for where conditions
         List<Expression<Func<T, object>>> Includes { get; }
         // different types of includes (Brands - Types)
+        Expression<Func<T, object>> OrderBy { get; }
+        Expression<Func<T, object>> OrderByDescending { get; }
     }
 }
