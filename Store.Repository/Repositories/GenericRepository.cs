@@ -22,6 +22,9 @@ namespace Store.Repository.Repositories
         public async Task AddAsync(TEntity entity)
         => await _context.Set<TEntity>().AddAsync(entity);
 
+        public void Update(TEntity entity)
+        => _context.Set<TEntity>().Update(entity);
+
         public void Delete(TEntity entity)
          => _context.Set<TEntity>().Remove(entity);
 
@@ -31,20 +34,22 @@ namespace Store.Repository.Repositories
         public async Task<TEntity> GetByIdAsync(TKey? id)
         => await _context.Set<TEntity>().FindAsync(id);
 
-        public void Update(TEntity entity)
-        => _context.Set<TEntity>().Update(entity);
 
+        // Specification
         public async Task<IReadOnlyList<TEntity>> GetAllWithSpecificationAsync(ISpecification<TEntity> specs)
        => await ApplySpecification(specs).ToListAsync();
 
-
         public async Task<TEntity> GetByIdWithSpecificationAsync(ISpecification<TEntity> specs)
         => await ApplySpecification(specs).FirstOrDefaultAsync();
+
+        public async Task<int> GetCountWithSpecificationAsync(ISpecification<TEntity> specs)
+        => await ApplySpecification(specs).CountAsync();
 
         public IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> specs)
         {
 
             return SpecificationEvaluator<TEntity,TKey>.GetQuery(_context.Set<TEntity>(),specs);
         }
+
     }
 }

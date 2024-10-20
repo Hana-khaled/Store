@@ -14,12 +14,31 @@ namespace Store.Repository.Sepcification
         {
             var query = InputQuery;
 
+            // Criteria
             if(specs.Criteria is not null)
             {
                query = query.Where(specs.Criteria);
             }
 
+            //Ordering
+            if(specs.OrderBy is not null)
+            {
+                query = query.OrderBy(specs.OrderBy);
+            }
+
+            if (specs.OrderByDescending is not null)
+            {
+                query = query.OrderBy(specs.OrderByDescending);
+            }
+
+            //Includes
             query = specs.Includes.Aggregate(query, (current, include) => current.Include(include));
+
+            //Pagination
+            if (specs.IsPaginated)
+            {
+                query = query.Skip(specs.Skip).Take(specs.Take);
+            }
 
             return query;
         }
