@@ -24,5 +24,7 @@ namespace Store.Repository.Sepcification
         int Take { get; }
         bool IsPaginated { get; }
 
+
+
     }
 }

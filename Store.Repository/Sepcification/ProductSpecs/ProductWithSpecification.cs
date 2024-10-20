@@ -12,7 +12,8 @@ namespace Store.Repository.Sepcification.ProductSpecs
         // Used in GetAllWithSpecification (criteria - include - order - paginate)
         public ProductWithSpecification(ProductSpecification specs) :
             base(Prod => (!specs.BrandId.HasValue || Prod.BrandId == specs.BrandId.Value) &&
-                         (!specs.TypeId.HasValue || Prod.TypeId == specs.TypeId.Value)) // Criteria
+                         (!specs.TypeId.HasValue || Prod.TypeId == specs.TypeId.Value) &&
+                         (string.IsNullOrEmpty(specs.Search) || Prod.Name.Trim().ToLower().Contains(specs.Search))) // Criteria
         {
             // Includes
             AddIncludes(x => x.Brand);
