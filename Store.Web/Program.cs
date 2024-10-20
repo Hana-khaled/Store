@@ -5,6 +5,7 @@ using Store.Repository.Interfaces;
 using Store.Repository.UnitOfWork;
 using Store.Services.Mapping;
 using Store.Services.Products;
+using Store.Web.Extensions;
 using Store.Web.Helper;
 using Store.Web.Middleware;
 
@@ -23,9 +24,11 @@ namespace Store.Web
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            builder.Services.AddScoped<IProductService, ProductService>();
-            builder.Services.AddAutoMapper(typeof(ProductProfile));
+            //builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //builder.Services.AddScoped<IProductService, ProductService>();
+            //builder.Services.AddAutoMapper(typeof(ProductProfile));
+
+            builder.Services.ApplicationServices();
 
             builder.Services.AddDbContext<StoreDbContext>(options => {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
