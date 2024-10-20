@@ -6,6 +6,7 @@ using Store.Repository.UnitOfWork;
 using Store.Services.Mapping;
 using Store.Services.Products;
 using Store.Web.Helper;
+using Store.Web.Middleware;
 
 namespace Store.Web
 {
@@ -40,6 +41,8 @@ namespace Store.Web
             }
 
             app.UseHttpsRedirection();
+
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseAuthorization();
 
